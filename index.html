@@ -214,34 +214,61 @@
                 const container = document.getElementById('packages-container');
                 
                 if (data.result && data.result.length > 0) {
-                    container.innerHTML = ''; 
+                    let cardsHtml = '';
                     
-                    data.result.forEach(pkg => {
+                    data.result.forEach((pkg, index) => {
                         let featuresHtml = '';
                         if (pkg.features && Array.isArray(pkg.features)) {
                             featuresHtml = pkg.features.map(f => `
                                 <li class="flex items-start gap-3 text-sm text-gray-700">
-                                    <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <svg class="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                     <span>${f}</span>
                                 </li>
                             `).join('');
                         }
                         
-                        container.innerHTML += `
-                            <div class="bg-white rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-gray-100 flex flex-col hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-shadow duration-300">
+                        const isPremium = index % 2 !== 0; // Alternate styling
+                        const headerColor = isPremium ? 'text-blue-600' : 'text-blue-500';
+                        const btnClass = isPremium ? 'bg-[#2942d4] hover:bg-blue-800' : 'bg-[#5865F2] hover:bg-blue-600';
+                        const labelText = isPremium ? 'PREMIUM' : 'STANDARD';
+                        
+                        cardsHtml += `
+                            <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 flex flex-col w-full md:w-1/2 z-10">
+                                <div class="text-blue-400 text-sm font-bold mb-4">${labelText}</div>
                                 <div class="text-center mb-8">
-                                    <h3 class="text-2xl font-bold text-blue-600 mb-2">${pkg.title || 'Package Name'}</h3>
-                                    ${pkg.price ? `<div class="text-3xl font-extrabold text-blue-700">₹ ${pkg.price.replace('₹', '').trim()}</div>` : ''}
+                                    <h3 class="text-3xl font-bold ${headerColor} mb-2">${pkg.title || 'Package Name'}</h3>
+                                    ${pkg.price ? `<div class="text-4xl font-extrabold ${headerColor}">₹ ${pkg.price.replace('₹', '').trim()}</div>` : ''}
                                 </div>
                                 <ul class="space-y-4 mb-8 flex-1">
                                     ${featuresHtml}
                                 </ul>
-                                <button onclick="window.location.href='#contact'" class="w-full bg-blue-500 text-white py-3 rounded-full font-bold hover:bg-blue-600 transition shadow-md hover:shadow-lg">
+                                <button onclick="window.location.href='#contact'" class="w-full ${btnClass} text-white py-3 rounded-full font-bold transition shadow-md">
                                     BUY NOW
                                 </button>
                             </div>
                         `;
                     });
+
+                    container.innerHTML = `
+                        <div class="mb-12 w-full">
+                            <!-- Tabs -->
+                            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                                <button class="bg-blue-600 text-white px-6 py-2 rounded-full font-bold shadow-md">8-9 STUDENTS</button>
+                                <button class="bg-white text-blue-600 border border-blue-200 px-6 py-2 rounded-full font-bold hover:bg-blue-50">10-12 STUDENTS</button>
+                                <button class="bg-white text-blue-600 border border-blue-200 px-6 py-2 rounded-full font-bold hover:bg-blue-50">COLLEGE GRADUATES</button>
+                                <button class="bg-white text-blue-600 border border-blue-200 px-6 py-2 rounded-full font-bold hover:bg-blue-50">WORKING PROFESSIONALS</button>
+                            </div>
+                            
+                            <!-- Cards Container -->
+                            <div class="relative max-w-5xl mx-auto flex flex-col md:flex-row gap-8 justify-center flex-wrap">
+                                <!-- Background Decorations -->
+                                <div class="absolute -left-12 top-1/4 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-sm opacity-70 hidden md:block"></div>
+                                <div class="absolute -right-8 -top-8 w-32 h-32 bg-pink-600 rounded-full mix-blend-multiply filter blur-sm opacity-70 hidden md:block"></div>
+                                
+                                ${cardsHtml}
+                            </div>
+                        </div>
+                    `;
                 } else {
                     container.innerHTML = `
                         <div class="bg-white rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-gray-100 flex flex-col hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-shadow duration-300">
