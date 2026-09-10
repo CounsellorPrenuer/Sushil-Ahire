@@ -173,8 +173,13 @@
                         const parts = ref.split('-');
                         const logoUrl = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
                         document.getElementById('site-logo').innerHTML = `<img src="${logoUrl}" alt="Future Map Logo" class="h-10">`;
+                    } else {
+                        document.getElementById('site-logo').innerHTML = `<img src="assets/logo.png" alt="Future Map Logo" class="h-10">`;
                     }
-                } catch(e) { console.log('Could not fetch settings', e); }
+                } catch(e) { 
+                    console.log('Could not fetch settings', e); 
+                    document.getElementById('site-logo').innerHTML = `<img src="assets/logo.png" alt="Future Map Logo" class="h-10">`;
+                }
 
                 // Fetch Founder Data
                 const founderQuery = encodeURIComponent('*[_type == "founder"][0]');
@@ -192,7 +197,11 @@
                         const parts = ref.split('-');
                         const imgUrl = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
                         document.getElementById('founder-image').src = imgUrl;
+                    } else {
+                        document.getElementById('founder-image').src = 'assets/founder.jpg';
                     }
+                } else {
+                    document.getElementById('founder-image').src = 'assets/founder.jpg';
                 }
 
                 // Fetch Mentoria Packages
