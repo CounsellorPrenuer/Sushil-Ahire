@@ -1,7 +1,5 @@
 import { client } from '../sanity/lib/client';
 
-export const revalidate = 60; // Revalidate every 60 seconds
-
 export default async function Home() {
   const founderInfo = await client.fetch(`*[_type == "founder"][0]`);
   const mentoriaPackages = await client.fetch(`*[_type == "mentoriaPackage"] | order(order asc)`);
