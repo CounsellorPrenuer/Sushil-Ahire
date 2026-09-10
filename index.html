@@ -277,31 +277,102 @@
                         <p class="font-bold mb-2">CORS Error Detected!</p>
                         <p class="text-sm text-gray-700 max-w-2xl mx-auto">To fix this and load data from Sanity, go to your Sanity project dashboard (manage.sanity.io) -> Settings -> API -> CORS Origins. Click "Add CORS origin" and add <b>https://counsellorprenuer.github.io</b>, ensuring "Allow credentials" is unchecked.</p>
                     </div>
-                    <div class="bg-white rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-gray-100 flex flex-col hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-shadow duration-300">
-                        <div class="text-center mb-8">
-                            <h3 class="text-2xl font-bold text-blue-600 mb-2">Discover</h3>
-                            <div class="text-3xl font-extrabold text-blue-700">₹ 5,500</div>
+                    <div class="mb-12">
+                        <!-- Tabs -->
+                        <div class="flex flex-wrap justify-center gap-4 mb-12">
+                            <button class="bg-blue-600 text-white px-6 py-2 rounded-full font-bold shadow-md">8-9 STUDENTS</button>
+                            <button class="bg-white text-blue-600 border border-blue-200 px-6 py-2 rounded-full font-bold hover:bg-blue-50">10-12 STUDENTS</button>
+                            <button class="bg-white text-blue-600 border border-blue-200 px-6 py-2 rounded-full font-bold hover:bg-blue-50">COLLEGE GRADUATES</button>
+                            <button class="bg-white text-blue-600 border border-blue-200 px-6 py-2 rounded-full font-bold hover:bg-blue-50">WORKING PROFESSIONALS</button>
                         </div>
-                        <ul class="space-y-4 mb-8 flex-1">
-                            <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Psychometric assessment to measure your interests</span></li>
-                            <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>1 career counselling session with Mentoria's expert career coaches</span></li>
-                            <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Lifetime access to Knowledge Gateway</span></li>
-                            <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Invites to live webinars by industry experts</span></li>
-                        </ul>
-                        <button onclick="window.location.href='#contact'" class="w-full bg-blue-500 text-white py-3 rounded-full font-bold hover:bg-blue-600 transition shadow-md hover:shadow-lg">BUY NOW</button>
-                    </div>
-                    <div class="bg-white rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-blue-100 flex flex-col hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-shadow duration-300 relative">
-                        <div class="absolute -top-4 right-6 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Popular</div>
-                        <div class="text-center mb-8">
-                            <h3 class="text-2xl font-bold text-blue-600 mb-2">Discover plus+</h3>
-                            <div class="text-3xl font-extrabold text-blue-700">₹ 15,000</div>
+                        
+                        <!-- Cards Container -->
+                        <div class="relative max-w-5xl mx-auto flex flex-col md:flex-row gap-8 justify-center">
+                            <!-- Background Decorations -->
+                            <div class="absolute -left-12 top-1/4 w-64 h-64 bg-yellow-400 rounded-full mix-blend-multiply filter blur-sm opacity-70 hidden md:block"></div>
+                            <div class="absolute -right-8 -top-8 w-32 h-32 bg-pink-600 rounded-full mix-blend-multiply filter blur-sm opacity-70 hidden md:block"></div>
+
+                            <!-- Standard Card -->
+                            <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 flex flex-col w-full md:w-1/2 z-10">
+                                <div class="text-blue-400 text-sm font-bold mb-4">STANDARD</div>
+                                <div class="text-center mb-8">
+                                    <h3 class="text-3xl font-bold text-blue-500 mb-2">Discover</h3>
+                                    <div class="text-4xl font-extrabold text-blue-500">₹ 5,500</div>
+                                </div>
+                                <ul class="space-y-4 mb-8 flex-1">
+                                    <li class="flex items-start gap-3 text-sm text-gray-700">
+                                        <svg class="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>Psychometric assessment to measure your interests</span>
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-gray-700">
+                                        <svg class="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>1 career counselling session with Mentoria's expert career coaches</span>
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-gray-700">
+                                        <svg class="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>Lifetime access to Knowledge Gateway</span>
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-gray-700">
+                                        <svg class="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>Invites to live webinars by industry experts</span>
+                                    </li>
+                                    <!-- Excluded Items -->
+                                    <li class="flex items-start gap-3 text-sm text-gray-400">
+                                        <svg class="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                        <span>Customised reports after each session with education pathways</span>
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-gray-400">
+                                        <svg class="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                        <span>Guidance on studying abroad</span>
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-gray-400">
+                                        <svg class="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                        <span>CV building during internships/graduation</span>
+                                    </li>
+                                </ul>
+                                <button onclick="window.location.href='#contact'" class="w-full bg-[#5865F2] text-white py-3 rounded-full font-bold hover:bg-blue-600 transition shadow-md">BUY NOW</button>
+                            </div>
+
+                            <!-- Premium Card -->
+                            <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 flex flex-col w-full md:w-1/2 z-10">
+                                <div class="text-blue-400 text-sm font-bold mb-4">PREMIUM</div>
+                                <div class="text-center mb-8">
+                                    <h3 class="text-3xl font-bold text-blue-600 mb-2">Discover plus+</h3>
+                                    <div class="text-4xl font-extrabold text-blue-600">₹ 15,000</div>
+                                </div>
+                                <ul class="space-y-4 mb-8 flex-1">
+                                    <li class="flex items-start gap-3 text-sm text-gray-700">
+                                        <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>Psychometric assessments to measure your interests, personality and abilities</span>
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-gray-700">
+                                        <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>8 career counselling sessions (1 every year) with Mentoria's expert career coaches until graduation</span>
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-gray-700">
+                                        <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>Lifetime access to Knowledge Gateway</span>
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-gray-700">
+                                        <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>Invites to live webinars by industry experts</span>
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-gray-700">
+                                        <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>Customised reports after each session with education pathways</span>
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-gray-700">
+                                        <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>Guidance on studying abroad</span>
+                                    </li>
+                                    <li class="flex items-start gap-3 text-sm text-gray-700">
+                                        <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                        <span>CV building during internships/graduation</span>
+                                    </li>
+                                </ul>
+                                <button onclick="window.location.href='#contact'" class="w-full bg-[#2942d4] text-white py-3 rounded-full font-bold hover:bg-blue-800 transition shadow-md">BUY NOW</button>
+                            </div>
                         </div>
-                        <ul class="space-y-4 mb-8 flex-1">
-                            <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Psychometric assessments to measure your interests, personality and abilities</span></li>
-                            <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>8 career counselling sessions (1 every year) with Mentoria's expert career coaches until graduation</span></li>
-                            <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Lifetime access to Knowledge Gateway</span></li>
-                        </ul>
-                        <button onclick="window.location.href='#contact'" class="w-full bg-blue-600 text-white py-3 rounded-full font-bold hover:bg-blue-700 transition shadow-md hover:shadow-lg">BUY NOW</button>
                     </div>
                 `;
             }
