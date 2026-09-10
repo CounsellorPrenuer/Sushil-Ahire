@@ -230,15 +230,31 @@
                         `;
                     });
                 } else {
-                    container.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500">No packages found in Sanity. Please add them in your Studio.</div>`;
+                    container.innerHTML = `
+                        ${[1,2,3,4,5,6].map(i => `
+                            <div class="col-span-full mb-8">
+                                <img src="assets/Mentoria${i}.png" alt="Mentoria Package ${i}" class="w-full h-auto object-contain rounded-xl shadow-md border border-gray-100"/>
+                            </div>
+                        `).join('')}
+                    `;
                 }
             } catch (err) {
                 console.error("Error fetching from Sanity:", err);
+                
+                // Fallback for founder image if CORS fails
+                document.getElementById('founder-image').src = 'assets/founder.jpg';
+
                 document.getElementById('packages-container').innerHTML = `
-                    <div class="col-span-full text-center py-12 text-red-500 bg-red-50 rounded-2xl">
+                    <div class="col-span-full text-center py-12 text-red-500 bg-red-50 rounded-2xl mb-8">
                         <p class="font-bold mb-2">CORS Error Detected!</p>
                         <p class="text-sm text-gray-700 max-w-2xl mx-auto">To fix this and load data from Sanity, go to your Sanity project dashboard (manage.sanity.io) -> Settings -> API -> CORS Origins. Click "Add CORS origin" and add <b>https://counsellorprenuer.github.io</b>, ensuring "Allow credentials" is unchecked.</p>
-                    </div>`;
+                    </div>
+                    ${[1,2,3,4,5,6].map(i => `
+                        <div class="col-span-full mb-8">
+                            <img src="assets/Mentoria${i}.png" alt="Mentoria Package ${i}" class="w-full h-auto object-contain rounded-xl shadow-md border border-gray-100"/>
+                        </div>
+                    `).join('')}
+                `;
             }
         }
 
