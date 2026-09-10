@@ -15,7 +15,7 @@
     <!-- Navigation -->
     <nav class="sticky top-0 z-50 bg-white shadow-md">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="font-extrabold text-2xl tracking-tighter text-blue-900">Future Map</div>
+            <div id="site-logo" class="font-extrabold text-2xl tracking-tighter text-blue-900">Future Map</div>
             <div class="hidden md:flex gap-6 font-medium">
                 <a href="#home" class="hover:text-blue-600 transition">Home</a>
                 <a href="#founder" class="hover:text-blue-600 transition">About Founder</a>
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="h-[500px] rounded-2xl overflow-hidden shadow-xl" id="founder-image-container">
-                <img src="_temp_assets/founder.jpg" alt="Dr Sushil Ahire" class="w-full h-full object-cover" id="founder-image">
+                <img src="" alt="Dr Sushil Ahire" class="w-full h-full object-cover" id="founder-image">
             </div>
         </div>
     </section>
@@ -162,6 +162,39 @@
         
         async function fetchSanityData() {
             try {
+                // Fetch Site Settings (Logo)
+                const settingsQuery = encodeURIComponent('*[_type == "siteSettings"][0]');
+                const settingsUrl = `https://${PROJECT_ID}.api.sanity.io/v${API_VERSION}/data/query/${DATASET}?query=${settingsQuery}`;
+                try {
+                    const settingsRes = await fetch(settingsUrl);
+                    const settingsData = await settingsRes.json();
+                    if (settingsData.result && settingsData.result.logo && settingsData.result.logo.asset && settingsData.result.logo.asset._ref) {
+                        const ref = settingsData.result.logo.asset._ref;
+                        const parts = ref.split('-');
+                        const logoUrl = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
+                        document.getElementById('site-logo').innerHTML = `<img src="${logoUrl}" alt="Future Map Logo" class="h-10">`;
+                    }
+                } catch(e) { console.log('Could not fetch settings', e); }
+
+                // Fetch Founder Data
+                const founderQuery = encodeURIComponent('*[_type == "founder"][0]');
+                const founderUrl = `https://${PROJECT_ID}.api.sanity.io/v${API_VERSION}/data/query/${DATASET}?query=${founderQuery}`;
+                const founderResponse = await fetch(founderUrl);
+                const founderData = await founderResponse.json();
+                
+                if (founderData.result) {
+                    if (founderData.result.name) document.getElementById('founder-name').innerText = 'Meet ' + founderData.result.name;
+                    if (founderData.result.title) document.getElementById('founder-title').innerText = founderData.result.title;
+                    if (founderData.result.philosophy) document.getElementById('founder-bio').innerText = founderData.result.philosophy;
+                    
+                    if (founderData.result.photo && founderData.result.photo.asset && founderData.result.photo.asset._ref) {
+                        const ref = founderData.result.photo.asset._ref;
+                        const parts = ref.split('-');
+                        const imgUrl = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
+                        document.getElementById('founder-image').src = imgUrl;
+                    }
+                }
+
                 // Fetch Mentoria Packages
                 const packagesQuery = encodeURIComponent('*[_type == "mentoriaPackage"] | order(order asc)');
                 const packagesUrl = `https://${PROJECT_ID}.api.sanity.io/v${API_VERSION}/data/query/${DATASET}?query=${packagesQuery}`;
@@ -175,7 +208,6 @@
                     container.innerHTML = ''; // Clear loading
                     
                     data.result.forEach(pkg => {
-                        // Generate image URL if exists
                         let imgUrl = '';
                         if (pkg.image && pkg.image.asset && pkg.image.asset._ref) {
                             const ref = pkg.image.asset._ref;
@@ -198,42 +230,15 @@
                         `;
                     });
                 } else {
-                    // Fallback to static images if Sanity has no data
-                    container.innerHTML = `
-                        ${[1,2,3,4,5,6].map(i => `
-                            <div class="bg-white rounded-3xl shadow-lg overflow-hidden flex flex-col border border-gray-100">
-                                <img src="_temp_assets/Mentoria${i}.png" class="w-full h-56 object-cover"/>
-                                <div class="p-8 flex-1 flex flex-col">
-                                    <h3 class="text-2xl font-bold mb-3">Mentoria Package ${i}</h3>
-                                    <p class="text-gray-600 mb-6 flex-1 text-sm">Discover your potential with this comprehensive package.</p>
-                                    <button onclick="window.location.href='#contact'" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition">Inquire Now</button>
-                                </div>
-                            </div>
-                        `).join('')}
-                    `;
+                    container.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500">No packages found in Sanity. Please add them in your Studio.</div>`;
                 }
-
-                // Fetch Founder Data
-                const founderQuery = encodeURIComponent('*[_type == "founder"][0]');
-                const founderUrl = `https://${PROJECT_ID}.api.sanity.io/v${API_VERSION}/data/query/${DATASET}?query=${founderQuery}`;
-                const founderResponse = await fetch(founderUrl);
-                const founderData = await founderResponse.json();
-                
-                if (founderData.result) {
-                    if (founderData.result.name) document.getElementById('founder-name').innerText = 'Meet ' + founderData.result.name;
-                    if (founderData.result.title) document.getElementById('founder-title').innerText = founderData.result.title;
-                    if (founderData.result.philosophy) document.getElementById('founder-bio').innerText = founderData.result.philosophy;
-                    
-                    if (founderData.result.photo && founderData.result.photo.asset && founderData.result.photo.asset._ref) {
-                        const ref = founderData.result.photo.asset._ref;
-                        const parts = ref.split('-');
-                        const imgUrl = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
-                        document.getElementById('founder-image').src = imgUrl;
-                    }
-                }
-
             } catch (err) {
                 console.error("Error fetching from Sanity:", err);
+                document.getElementById('packages-container').innerHTML = `
+                    <div class="col-span-full text-center py-12 text-red-500 bg-red-50 rounded-2xl">
+                        <p class="font-bold mb-2">CORS Error Detected!</p>
+                        <p class="text-sm text-gray-700 max-w-2xl mx-auto">To fix this and load data from Sanity, go to your Sanity project dashboard (manage.sanity.io) -> Settings -> API -> CORS Origins. Click "Add CORS origin" and add <b>https://counsellorprenuer.github.io</b>, ensuring "Allow credentials" is unchecked.</p>
+                    </div>`;
             }
         }
 
