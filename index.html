@@ -205,37 +205,65 @@
                 const container = document.getElementById('packages-container');
                 
                 if (data.result && data.result.length > 0) {
-                    container.innerHTML = ''; // Clear loading
+                    container.innerHTML = ''; 
                     
                     data.result.forEach(pkg => {
-                        let imgUrl = '';
-                        if (pkg.image && pkg.image.asset && pkg.image.asset._ref) {
-                            const ref = pkg.image.asset._ref;
-                            const parts = ref.split('-');
-                            imgUrl = `https://cdn.sanity.io/images/${PROJECT_ID}/${DATASET}/${parts[1]}-${parts[2]}.${parts[3]}`;
+                        let featuresHtml = '';
+                        if (pkg.features && Array.isArray(pkg.features)) {
+                            featuresHtml = pkg.features.map(f => `
+                                <li class="flex items-start gap-3 text-sm text-gray-700">
+                                    <svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <span>${f}</span>
+                                </li>
+                            `).join('');
                         }
                         
                         container.innerHTML += `
-                            <div class="bg-white rounded-3xl shadow-lg overflow-hidden flex flex-col border border-gray-100 hover:shadow-xl transition-shadow duration-300">
-                                ${imgUrl ? `<img src="${imgUrl}" alt="${pkg.title}" class="w-full h-56 object-cover"/>` : `<div class="h-56 bg-gray-100 flex items-center justify-center text-gray-400">No Image</div>`}
-                                <div class="p-8 flex-1 flex flex-col">
-                                    <h3 class="text-2xl font-bold mb-3">${pkg.title || 'Untitled Package'}</h3>
-                                    <p class="text-gray-600 mb-6 flex-1 text-sm leading-relaxed">${pkg.description || ''}</p>
-                                    ${pkg.price ? `<div class="text-2xl font-black text-blue-900 mb-6">${pkg.price}</div>` : ''}
-                                    <button onclick="window.location.href='#contact'" class="w-full bg-gray-50 text-gray-900 border border-gray-200 py-3 rounded-xl font-bold hover:bg-gray-100 transition">
-                                        Inquire Now
-                                    </button>
+                            <div class="bg-white rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-gray-100 flex flex-col hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-shadow duration-300">
+                                <div class="text-center mb-8">
+                                    <h3 class="text-2xl font-bold text-blue-600 mb-2">${pkg.title || 'Package Name'}</h3>
+                                    ${pkg.price ? `<div class="text-3xl font-extrabold text-blue-700">₹ ${pkg.price.replace('₹', '').trim()}</div>` : ''}
                                 </div>
+                                <ul class="space-y-4 mb-8 flex-1">
+                                    ${featuresHtml}
+                                </ul>
+                                <button onclick="window.location.href='#contact'" class="w-full bg-blue-500 text-white py-3 rounded-full font-bold hover:bg-blue-600 transition shadow-md hover:shadow-lg">
+                                    BUY NOW
+                                </button>
                             </div>
                         `;
                     });
                 } else {
                     container.innerHTML = `
-                        ${[1,2,3,4,5,6].map(i => `
-                            <div class="col-span-full mb-8">
-                                <img src="assets/Mentoria${i}.png" alt="Mentoria Package ${i}" class="w-full h-auto object-contain rounded-xl shadow-md border border-gray-100"/>
+                        <div class="bg-white rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-gray-100 flex flex-col hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-shadow duration-300">
+                            <div class="text-center mb-8">
+                                <h3 class="text-2xl font-bold text-blue-600 mb-2">Discover</h3>
+                                <div class="text-3xl font-extrabold text-blue-700">₹ 5,500</div>
                             </div>
-                        `).join('')}
+                            <ul class="space-y-4 mb-8 flex-1">
+                                <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Psychometric assessment to measure your interests</span></li>
+                                <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>1 career counselling session with Mentoria's expert career coaches</span></li>
+                                <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Lifetime access to Knowledge Gateway</span></li>
+                                <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Invites to live webinars by industry experts</span></li>
+                                <li class="flex items-start gap-3 text-sm text-gray-400"><svg class="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg><span class="line-through">Customised reports after each session with education pathways</span></li>
+                            </ul>
+                            <button onclick="window.location.href='#contact'" class="w-full bg-blue-500 text-white py-3 rounded-full font-bold hover:bg-blue-600 transition shadow-md hover:shadow-lg">BUY NOW</button>
+                        </div>
+                        <div class="bg-white rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-blue-100 flex flex-col hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-shadow duration-300 relative">
+                            <div class="absolute -top-4 right-6 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Popular</div>
+                            <div class="text-center mb-8">
+                                <h3 class="text-2xl font-bold text-blue-600 mb-2">Discover plus+</h3>
+                                <div class="text-3xl font-extrabold text-blue-700">₹ 15,000</div>
+                            </div>
+                            <ul class="space-y-4 mb-8 flex-1">
+                                <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Psychometric assessments to measure your interests, personality and abilities</span></li>
+                                <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>8 career counselling sessions (1 every year) with Mentoria's expert career coaches until graduation</span></li>
+                                <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Lifetime access to Knowledge Gateway</span></li>
+                                <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Invites to live webinars by industry experts</span></li>
+                                <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Customised reports after each session with education pathways</span></li>
+                            </ul>
+                            <button onclick="window.location.href='#contact'" class="w-full bg-blue-600 text-white py-3 rounded-full font-bold hover:bg-blue-700 transition shadow-md hover:shadow-lg">BUY NOW</button>
+                        </div>
                     `;
                 }
             } catch (err) {
@@ -249,11 +277,32 @@
                         <p class="font-bold mb-2">CORS Error Detected!</p>
                         <p class="text-sm text-gray-700 max-w-2xl mx-auto">To fix this and load data from Sanity, go to your Sanity project dashboard (manage.sanity.io) -> Settings -> API -> CORS Origins. Click "Add CORS origin" and add <b>https://counsellorprenuer.github.io</b>, ensuring "Allow credentials" is unchecked.</p>
                     </div>
-                    ${[1,2,3,4,5,6].map(i => `
-                        <div class="col-span-full mb-8">
-                            <img src="assets/Mentoria${i}.png" alt="Mentoria Package ${i}" class="w-full h-auto object-contain rounded-xl shadow-md border border-gray-100"/>
+                    <div class="bg-white rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-gray-100 flex flex-col hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-shadow duration-300">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-blue-600 mb-2">Discover</h3>
+                            <div class="text-3xl font-extrabold text-blue-700">₹ 5,500</div>
                         </div>
-                    `).join('')}
+                        <ul class="space-y-4 mb-8 flex-1">
+                            <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Psychometric assessment to measure your interests</span></li>
+                            <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>1 career counselling session with Mentoria's expert career coaches</span></li>
+                            <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Lifetime access to Knowledge Gateway</span></li>
+                            <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Invites to live webinars by industry experts</span></li>
+                        </ul>
+                        <button onclick="window.location.href='#contact'" class="w-full bg-blue-500 text-white py-3 rounded-full font-bold hover:bg-blue-600 transition shadow-md hover:shadow-lg">BUY NOW</button>
+                    </div>
+                    <div class="bg-white rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.08)] border border-blue-100 flex flex-col hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-shadow duration-300 relative">
+                        <div class="absolute -top-4 right-6 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Popular</div>
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-blue-600 mb-2">Discover plus+</h3>
+                            <div class="text-3xl font-extrabold text-blue-700">₹ 15,000</div>
+                        </div>
+                        <ul class="space-y-4 mb-8 flex-1">
+                            <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Psychometric assessments to measure your interests, personality and abilities</span></li>
+                            <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>8 career counselling sessions (1 every year) with Mentoria's expert career coaches until graduation</span></li>
+                            <li class="flex items-start gap-3 text-sm text-gray-700"><svg class="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Lifetime access to Knowledge Gateway</span></li>
+                        </ul>
+                        <button onclick="window.location.href='#contact'" class="w-full bg-blue-600 text-white py-3 rounded-full font-bold hover:bg-blue-700 transition shadow-md hover:shadow-lg">BUY NOW</button>
+                    </div>
                 `;
             }
         }
